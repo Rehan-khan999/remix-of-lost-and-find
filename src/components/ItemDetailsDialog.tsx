@@ -165,12 +165,16 @@ export const ItemDetailsDialog = ({ item, isOpen, onClose }: ItemDetailsDialogPr
               <h3 className="font-semibold text-gray-900">Photos</h3>
               <div className="grid grid-cols-2 gap-2">
                 {item.photos.map((photo, index) => (
-                  <img
+                  <div 
                     key={index}
-                    src={photo}
-                    alt={`${item.title} photo ${index + 1}`}
-                    className="w-full h-32 object-cover rounded-lg border"
-                  />
+                    className="flex items-center justify-center bg-muted/30 rounded-lg border min-h-[120px]"
+                  >
+                    <img
+                      src={photo}
+                      alt={`${item.title} photo ${index + 1}`}
+                      className="max-w-full max-h-48 object-contain rounded-lg"
+                    />
+                  </div>
                 ))}
               </div>
             </div>
