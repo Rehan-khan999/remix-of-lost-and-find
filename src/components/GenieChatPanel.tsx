@@ -92,7 +92,7 @@ export const GenieChatPanel = () => {
   // Initialize panel position - to the left of the genie character
   useEffect(() => {
     const initPosition = () => {
-      const genieAreaWidth = 220; // Space for genie on the right
+      const genieAreaWidth = 280; // Space for genie on the right
       // Position panel to the left of the genie area
       const initialX = window.innerWidth - panelWidth - genieAreaWidth;
       const initialY = window.innerHeight - panelHeight - 60;
