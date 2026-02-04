@@ -125,11 +125,11 @@ export const PhotoUpload = ({ onPhotosChange, maxPhotos = 3 }: PhotoUploadProps)
       {photos.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {photos.map((photo, index) => (
-            <div key={index} className="relative group">
+            <div key={index} className="relative group flex items-center justify-center bg-muted/30 rounded-lg border min-h-[100px] max-h-[180px]">
               <img
                 src={photo}
                 alt={`Upload ${index + 1}`}
-                className="w-full h-24 object-cover rounded-lg border"
+                className="max-w-full max-h-[180px] object-contain rounded-lg"
               />
               <Button
                 type="button"
