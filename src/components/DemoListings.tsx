@@ -12,7 +12,7 @@ import pkRemote2 from "@/assets/demo/pk-remote-2.jpg";
 import pkRemote3 from "@/assets/demo/pk-remote-3.jpg";
 import jadoo1 from "@/assets/demo/jadoo-1.jpeg";
 import jadoo2 from "@/assets/demo/jadoo-2.jpeg";
-import jadoo3 from "@/assets/demo/jadoo-4.jpeg";
+import jadoo3 from "@/assets/demo/jadoo-3.jpeg";
 
 interface DemoItem {
   id: string;
@@ -239,11 +239,11 @@ export const DemoListings = () => {
             <div className="space-y-6">
               {/* Photo Gallery */}
               <div className="space-y-3">
-                <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
+                <div className="flex items-center justify-center rounded-lg overflow-hidden bg-muted min-h-[200px] max-h-[400px]">
                   <img 
                     src={selectedItem.photos[currentPhotoIndex]} 
                     alt={selectedItem.title}
-                    className="w-full h-full object-cover"
+                    className="max-w-full max-h-[400px] object-contain"
                   />
                 </div>
                 
