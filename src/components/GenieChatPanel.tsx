@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Loader2, Send, X, Sparkles, Wifi, WifiOff, MapPin, Tag, Eye, RotateCcw, GripHorizontal } from 'lucide-react';
 import { GENIE_EVENTS, triggerGenieReaction, triggerPresentChat } from './ThreeCanvas';
@@ -57,7 +56,6 @@ const clearGenieMemory = () => {
 
 export const GenieChatPanel = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollKey, setScrollKey] = useState(0); // Force ScrollArea re-mount
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isItemDialogOpen, setIsItemDialogOpen] = useState(false);
   
@@ -189,8 +187,6 @@ export const GenieChatPanel = () => {
     const handleEmerged = () => {
       console.log('GenieChatPanel: Received EMERGED event');
       setIsVisible(true);
-      // Force ScrollArea to re-mount for proper initialization
-      setScrollKey(prev => prev + 1);
       setTimeout(() => {
         triggerPresentChat(true);
         inputRef.current?.focus();
@@ -221,10 +217,7 @@ export const GenieChatPanel = () => {
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     if (scrollAreaRef.current) {
-      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
-      if (scrollContainer) {
-        scrollContainer.scrollTop = scrollContainer.scrollHeight;
-      }
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
 
@@ -412,7 +405,10 @@ export const GenieChatPanel = () => {
           </div>
 
           {/* Messages */}
-          <ScrollArea key={scrollKey} className="h-[280px] p-2.5 overflow-auto" ref={scrollAreaRef}>
+          <div 
+            ref={scrollAreaRef}
+            className="h-[280px] p-2.5 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+          >
             <div className="space-y-2.5">
               {messages.map((message, index) => (
                 <div
@@ -503,7 +499,7 @@ export const GenieChatPanel = () => {
                 </div>
               )}
             </div>
-          </ScrollArea>
+          </div>
 
           {/* Input */}
           <div className="p-2.5 border-t border-white/10">
