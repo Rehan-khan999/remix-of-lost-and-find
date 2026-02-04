@@ -2,6 +2,7 @@ import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Loader2, Send, X, Sparkles, Wifi, WifiOff, MapPin, Tag, Eye, RotateCcw, GripHorizontal } from 'lucide-react';
 import { GENIE_EVENTS, triggerGenieReaction, triggerPresentChat } from './ThreeCanvas';
 import { cn } from '@/lib/utils';
@@ -92,7 +93,7 @@ export const GenieChatPanel = () => {
   // Initialize panel position - to the left of the genie character
   useEffect(() => {
     const initPosition = () => {
-      const genieAreaWidth = 418; // Space for genie on the right
+      const genieAreaWidth = 378; // Space for genie on the right (40px closer)
       // Position panel to the left of the genie area
       const initialX = window.innerWidth - panelWidth - genieAreaWidth;
       const initialY = window.innerHeight - panelHeight - 60;
@@ -419,12 +420,11 @@ export const GenieChatPanel = () => {
           </div>
 
           {/* Messages */}
-          <div 
+          <ScrollArea 
             key={scrollMountKey}
-            ref={scrollAreaRef}
-            className="h-[280px] p-2.5 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+            className="h-[280px] p-2.5"
           >
-            <div className="space-y-2.5">
+            <div ref={scrollAreaRef} className="space-y-2.5">
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -514,7 +514,7 @@ export const GenieChatPanel = () => {
                 </div>
               )}
             </div>
-          </div>
+          </ScrollArea>
 
           {/* Input */}
           <div className="p-2.5 border-t border-white/10">
