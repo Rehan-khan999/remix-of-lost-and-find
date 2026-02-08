@@ -22,6 +22,7 @@ import NotFound from "./pages/NotFound";
 import SuccessStories from "./pages/SuccessStories";
 import GuestPost from "./pages/GuestPost";
 import ResetPassword from "./pages/ResetPassword";
+import VerifyEmail from "./pages/VerifyEmail";
 import Profile from "./pages/Profile";
 import UserProfile from "./pages/UserProfile";
 import Settings from "./pages/Settings";
@@ -42,6 +43,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/verify-email" element={<VerifyEmail />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/post-lost" element={<PostLost />} />
               <Route path="/post-found" element={<PostFound />} />

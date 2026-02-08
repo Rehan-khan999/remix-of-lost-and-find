@@ -178,11 +178,6 @@ export default function Index() {
                   icon: Heart,
                   title: "Community Trust",
                   description: "Built on transparency and collaboration, fostering a network of people helping people."
-                },
-                {
-                  icon: Search,
-                  title: "Visual Recognition",
-                  description: "Image analysis technology identifies items by their unique visual characteristics and features."
                 }
               ].map((feature, index) => (
                 <div
