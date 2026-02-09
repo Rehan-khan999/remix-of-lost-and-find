@@ -21,12 +21,13 @@ const VerifyEmail = () => {
   const { user } = useAuth();
 
   const email = location.state?.email || '';
+  const mode: 'signup' | 'recovery' = location.state?.mode || 'signup';
 
   useEffect(() => {
-    if (user) {
+    if (user && mode === 'signup') {
       navigate('/');
     }
-  }, [user, navigate]);
+  }, [user, navigate, mode]);
 
   useEffect(() => {
     if (!email) {
@@ -49,7 +50,7 @@ const VerifyEmail = () => {
       const { error } = await supabase.auth.verifyOtp({
         email,
         token: otp,
-        type: 'signup'
+        type: mode === 'recovery' ? 'recovery' : 'signup'
       });
 
       if (error) {
@@ -59,11 +60,19 @@ const VerifyEmail = () => {
           variant: "destructive"
         });
       } else {
-        toast({
-          title: "Email verified!",
-          description: "Welcome to FindIt. Your account is now active."
-        });
-        navigate('/');
+        if (mode === 'recovery') {
+          toast({
+            title: "Code verified!",
+            description: "Now set your new password."
+          });
+          navigate('/set-new-password', { state: { email } });
+        } else {
+          toast({
+            title: "Email verified!",
+            description: "Welcome to FindIt. Your account is now active."
+          });
+          navigate('/');
+        }
       }
     } catch (error) {
       toast({
@@ -79,15 +88,22 @@ const VerifyEmail = () => {
   const handleResendCode = async () => {
     setResending(true);
     try {
-      const { error } = await supabase.auth.resend({
-        type: 'signup',
-        email,
-      });
+      let result;
+      if (mode === 'recovery') {
+        result = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/set-new-password`
+        });
+      } else {
+        result = await supabase.auth.resend({
+          type: 'signup',
+          email,
+        });
+      }
 
-      if (error) {
+      if (result.error) {
         toast({
           title: "Failed to resend code",
-          description: error.message,
+          description: result.error.message,
           variant: "destructive"
         });
       } else {
@@ -106,6 +122,12 @@ const VerifyEmail = () => {
       setResending(false);
     }
   };
+
+  const headerText = mode === 'recovery' ? 'Reset your password 🔐' : 'Check your email ✨';
+  const subText = mode === 'recovery'
+    ? 'We sent a password reset code to'
+    : 'We sent a verification code to';
+  const buttonText = mode === 'recovery' ? 'Verify code' : 'Verify email';
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-background">
@@ -129,10 +151,10 @@ const VerifyEmail = () => {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-foreground mb-2">
-              Check your email ✨
+              {headerText}
             </h1>
             <p className="text-muted-foreground text-sm">
-              We sent a verification code to{' '}
+              {subText}{' '}
               <span className="font-medium text-foreground">{email}</span>
             </p>
           </div>
@@ -161,7 +183,7 @@ const VerifyEmail = () => {
             disabled={loading || otp.length !== 6}
             className="w-full py-6 text-lg font-semibold"
           >
-            {loading ? 'Verifying...' : 'Verify email'}
+            {loading ? 'Verifying...' : buttonText}
           </Button>
 
           {/* Resend Link */}

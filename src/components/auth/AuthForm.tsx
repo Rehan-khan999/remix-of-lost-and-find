@@ -111,8 +111,9 @@ export const AuthForm = ({ mode, onToggleMode }: AuthFormProps) => {
       } else {
         toast({
           title: "Check your email",
-          description: `We've sent a password reset link to ${email}`
+          description: `We've sent a password reset code to ${email}`
         });
+        navigate('/verify-email', { state: { email, mode: 'recovery' } });
       }
     } catch (error) {
       toast({

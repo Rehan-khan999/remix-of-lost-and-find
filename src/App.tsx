@@ -23,6 +23,7 @@ import SuccessStories from "./pages/SuccessStories";
 import GuestPost from "./pages/GuestPost";
 import ResetPassword from "./pages/ResetPassword";
 import VerifyEmail from "./pages/VerifyEmail";
+import SetNewPassword from "./pages/SetNewPassword";
 import Profile from "./pages/Profile";
 import UserProfile from "./pages/UserProfile";
 import Settings from "./pages/Settings";
@@ -45,6 +46,7 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/verify-email" element={<VerifyEmail />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/set-new-password" element={<SetNewPassword />} />
               <Route path="/post-lost" element={<PostLost />} />
               <Route path="/post-found" element={<PostFound />} />
               <Route path="/browse" element={<Browse />} />
