@@ -27,21 +27,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       (event, session) => {
         console.log('Auth state change:', event, session?.user?.email);
         
-        // Handle password recovery - don't set session for normal login
+        // Handle password recovery - keep session but don't redirect
         if (event === 'PASSWORD_RECOVERY') {
-          console.log('Password recovery event detected');
-          setSession(session); // Keep session for password update
-          setUser(session?.user ?? null);
-          setLoading(false);
-          setTimeout(() => {
-            window.location.pathname = '/reset-password';
-          }, 100);
-        } else {
-          // Normal auth events
-          setSession(session);
-          setUser(session?.user ?? null);
-          setLoading(false);
+          console.log('Password recovery event detected - session maintained for password update');
         }
+        
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
       }
     );
 
