@@ -15,8 +15,10 @@ export default defineConfig(({ mode }) => ({
 
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico"],
       strategies: "generateSW",
+
+      includeAssets: ["favicon.ico"],
+
       manifest: {
         name: "FindIt - Lost & Found",
         short_name: "FindIt",
@@ -33,6 +35,19 @@ export default defineConfig(({ mode }) => ({
             purpose: "any maskable",
           },
         ],
+      },
+
+      // ✅ THIS IS THE IMPORTANT FIX
+      workbox: {
+        // ❌ never precache heavy AI / WASM files
+        globIgnores: [
+          "**/*.wasm",
+          "**/*.onnx",
+          "**/*.bin",
+        ],
+
+        // keep default safe limit
+        maximumFileSizeToCacheInBytes: 2 * 1024 * 1024,
       },
     }),
 
