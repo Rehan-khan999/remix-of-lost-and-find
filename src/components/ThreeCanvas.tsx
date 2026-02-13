@@ -316,9 +316,17 @@ export const ThreeCanvas = () => {
       console.error('Error loading lamp:', error);
     });
 
-    // Animation loop
+    // Animation loop with independent floating
+    let floatTime = 0;
     const animate = () => {
       requestAnimationFrame(animate);
+      
+      // Independent floating animation when genie is out
+      if (sceneRef.current?.isOut && sceneRef.current?.genie) {
+        floatTime += 0.02;
+        const baseY = -0.3; // genie's resting Y after emerge
+        sceneRef.current.genie.position.y = baseY + Math.sin(floatTime) * 0.05;
+      }
       
       // Broadcast genie position when out
       if (sceneRef.current?.isOut) {

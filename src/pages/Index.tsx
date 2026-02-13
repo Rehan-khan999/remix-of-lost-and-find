@@ -1,23 +1,35 @@
+import React, { useState, useEffect, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, MapPin, Shield, Sparkles, Zap, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { GenieWrapper } from "@/components/GenieWrapper";
 import { useTranslation } from 'react-i18next';
 import { HomepageBackground } from "@/components/HomepageBackground";
+
+// Lazy load the heavy 3D Genie scene (Three.js + GSAP + GLB models)
+const GenieWrapper = React.lazy(() => import("@/components/GenieWrapper").then(m => ({ default: m.GenieWrapper })));
 
 export default function Index() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { t } = useTranslation();
 
+  // Delay mounting the heavy 3D scene so critical UI paints first
+  const [showGenie, setShowGenie] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setShowGenie(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen relative" style={{ background: 'transparent', position: 'relative', zIndex: 1 }}>
       {/* Homepage Background - fixed, behind everything */}
       <HomepageBackground />
       
-      {/* Genie + Chat wrapper - contains both 3D canvas and chat panel */}
-      <GenieWrapper />
+      {/* Genie + Chat wrapper - lazy loaded after 800ms */}
+      <Suspense fallback={null}>
+        {showGenie && <GenieWrapper />}
+      </Suspense>
       
       {/* Hero Section */}
       <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden page-enter" style={{ zIndex: 1, pointerEvents: 'none' }}>

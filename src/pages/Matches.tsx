@@ -8,7 +8,8 @@ import { format } from "date-fns";
 import { ItemDetailsDialog } from "@/components/ItemDetailsDialog";
 import { useMemo, useState } from "react";
 import { Handshake, Eye, Clock, Sparkles } from "lucide-react";
-import { computeImageSimilarity } from "@/services/imageSimilarity";
+// Dynamic import: AI models loaded only when user triggers re-ranking
+const loadImageSimilarity = () => import("@/services/imageSimilarity");
 
 interface Match {
   id: string;
@@ -140,6 +141,7 @@ const Matches = () => {
                     const a = userOwnedItem?.photos?.[0];
                     const b = matchedItem?.photos?.[0];
                     if (a && b) {
+                      const { computeImageSimilarity } = await loadImageSimilarity();
                       const score = await computeImageSimilarity(a, b);
                       scores[match.id] = score;
                     }

@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { createHash } from "https://deno.land/std@0.168.0/crypto/mod.ts"
+// crypto.subtle is used directly (Web Crypto API available in Deno)
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -27,7 +27,7 @@ serve(async (req) => {
     // 1) Verify the user owns the item
     const { data: item, error: itemError } = await supabase
       .from('items')
-      .select('id, user_id, title, description, created_at')
+      .select('id, user_id, title, description, created_at, additional_info')
       .eq('id', itemId)
       .eq('user_id', userId)
       .single()

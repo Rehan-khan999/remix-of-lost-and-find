@@ -637,7 +637,7 @@ async function handleChat(
   // Step 6: LAST RESORT - Use phi3:mini in normal mode (Lost & Found focused)
   console.log('Using phi3:mini as fallback (normal mode)...');
   try {
-    const aiResponse = await callTextModel(userMessage, lang, 'normal');
+    const aiResponse = await callTextModel(userMessage, lang);
     return { response: aiResponse, context: { intent: 'unknown', missingFields: [], clarifyingQuestions: [], matches: [], recommendedAction: 'continue', aiUsed: true, dbQueried: false, sessionContext } };
   } catch (error) {
     return { 

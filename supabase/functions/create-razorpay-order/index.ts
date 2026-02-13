@@ -118,12 +118,12 @@ serve(async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error in create-razorpay-order:', error);
     return new Response(
       JSON.stringify({ 
         success: false, 
-        error: error.message || 'Failed to create order' 
+        error: error?.message || 'Failed to create order' 
       }),
       { 
         status: 400, 

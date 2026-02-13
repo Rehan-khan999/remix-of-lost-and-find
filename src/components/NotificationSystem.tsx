@@ -114,7 +114,7 @@ export const NotificationSystem = () => {
         }
 
         const registration = await navigator.serviceWorker.ready;
-        const subscription = await registration.pushManager.getSubscription();
+        const subscription = await (registration as any).pushManager?.getSubscription();
         setSubscribed(!!subscription);
 
         // Watch permission changes if supported
@@ -207,7 +207,7 @@ export const NotificationSystem = () => {
 
       // Subscribe to push notifications
       const registration = await navigator.serviceWorker.ready;
-      const subscription = await registration.pushManager.subscribe({
+      const subscription = await (registration as any).pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(publicKey),
       });
