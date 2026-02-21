@@ -40,7 +40,7 @@ const App = () => (
         
         <div className="min-h-screen bg-background flex flex-col">
           <Header />
-          <div className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 flex flex-col min-h-0 relative z-[1]">
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />

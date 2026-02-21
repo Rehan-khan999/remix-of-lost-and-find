@@ -22,7 +22,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div className="min-h-screen relative" style={{ background: 'transparent', position: 'relative', zIndex: 1 }}>
+    <div className="relative" style={{ background: 'transparent', position: 'relative', zIndex: 1 }}>
       {/* Homepage Background - fixed, behind everything */}
       <HomepageBackground />
       
@@ -99,7 +99,7 @@ export default function Index() {
       </section>
 
       {/* Content sections with solid background */}
-      <div className="relative bg-background" style={{ zIndex: 1, position: 'relative' }}>
+      <div className="relative bg-background" style={{ zIndex: 2, position: 'relative' }}>
         {/* How It Works Section */}
         <section className="py-24 lg:py-32">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -209,7 +209,7 @@ export default function Index() {
         </section>
 
         {/* CTA Section */}
-        <section className="pt-24 lg:pt-32 pb-24 lg:pb-32">
+        <section className="pt-24 lg:pt-32 pb-8 lg:pb-12">
           <div className="max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <div className="card-float-elevated p-10 lg:p-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-card-foreground">

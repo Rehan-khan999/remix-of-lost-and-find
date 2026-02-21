@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="mt-auto">
+    <footer className="relative" style={{ zIndex: 2 }}>
       {/* Mission Section */}
-      <div className="bg-muted/50 py-16 px-4">
+      <div className="bg-muted py-16 px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-2xl sm:text-3xl font-semibold text-teal-500 mb-4 leading-snug">
             Helping people reconnect with their belongings
