@@ -45,8 +45,12 @@ export const GenieWhisperEffect: React.FC = () => {
       ref={containerRef}
       style={{
         position: "fixed",
-        bottom: 160,
-        right: 40,
+        bottom: 80,
+        right: 35,
+        width: 120,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         pointerEvents: "none",
         zIndex: 6,
       }}
