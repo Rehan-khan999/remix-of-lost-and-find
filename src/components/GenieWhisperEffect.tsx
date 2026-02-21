@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const whispers = [
   "Need help?",
@@ -15,6 +15,19 @@ const whispers = [
 
 export const GenieWhisperEffect: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(true);
+
+  // Hide when genie emerges, show when genie returns
+  useEffect(() => {
+    const handleEmerged = () => setVisible(false);
+    const handleHidden = () => setVisible(true);
+    window.addEventListener('genie-emerged', handleEmerged);
+    window.addEventListener('genie-hidden', handleHidden);
+    return () => {
+      window.removeEventListener('genie-emerged', handleEmerged);
+      window.removeEventListener('genie-hidden', handleHidden);
+    };
+  }, []);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -53,6 +66,8 @@ export const GenieWhisperEffect: React.FC = () => {
         alignItems: "center",
         pointerEvents: "none",
         zIndex: 6,
+        opacity: visible ? 1 : 0,
+        transition: "opacity 0.5s ease",
       }}
     />
   );
