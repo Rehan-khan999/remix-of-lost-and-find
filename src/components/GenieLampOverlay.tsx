@@ -110,8 +110,7 @@ export const GenieLampOverlay: React.FC = () => {
       {/* PART 2 — Glow Aura */}
       <div className={`genie-aura ${hovered ? "genie-aura-hover" : ""}`} />
 
-      {/* PART 3 — Instruction Text */}
-      <div className="genie-instruction-text">✨ Ask the Genie</div>
+      {/* PART 3 — Instruction Text (removed) */}
 
       {/* Existing hint text */}
       <div className="genie-hint-text">✨ Click the lamp to summon your AI Genie</div>
