@@ -209,7 +209,7 @@ export default function Index() {
         </section>
 
         {/* CTA Section */}
-        <section className="pt-24 lg:pt-32 pb-0">
+        <section className="pt-24 lg:pt-32 pb-24 lg:pb-32">
           <div className="max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <div className="card-float-elevated p-10 lg:p-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-card-foreground">
