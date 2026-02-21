@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useTranslation } from 'react-i18next';
 import { HomepageBackground } from "@/components/HomepageBackground";
+import { GenieLampOverlay } from "@/components/GenieLampOverlay";
 
 // Lazy load the heavy 3D Genie scene (Three.js + GSAP + GLB models)
 const GenieWrapper = React.lazy(() => import("@/components/GenieWrapper").then(m => ({ default: m.GenieWrapper })));
@@ -30,6 +31,9 @@ export default function Index() {
       <Suspense fallback={null}>
         {showGenie && <GenieWrapper />}
       </Suspense>
+
+      {/* Visual attention overlay for lamp - pointer-events: none, no interference */}
+      <GenieLampOverlay />
       
       {/* Hero Section */}
       <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden page-enter" style={{ zIndex: 1, pointerEvents: 'none' }}>

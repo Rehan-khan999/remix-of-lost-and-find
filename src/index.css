@@ -598,3 +598,55 @@
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 0.8; transform: scale(1.3); }
 }
+
+/* Genie Lamp Overlay Animations */
+.genie-hint-text {
+  position: absolute;
+  bottom: 180px;
+  right: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #67e8f9;
+  text-shadow: 0 0 8px rgba(103,232,249,0.8);
+  animation: genieHintFloat 3s ease-in-out infinite;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+@keyframes genieHintFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.genie-pulse-ring {
+  position: absolute;
+  bottom: 40px;
+  right: 35px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid rgba(34,211,238,0.5);
+  animation: geniePulse 2s infinite;
+}
+
+@keyframes geniePulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+.genie-glow-layer {
+  position: absolute;
+  bottom: 50px;
+  right: 45px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.25), transparent 70%);
+  filter: blur(20px);
+  animation: genieGlowPulse 3s infinite;
+}
+
+@keyframes genieGlowPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
