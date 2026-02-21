@@ -36,7 +36,20 @@ export const GenieLampOverlay: React.FC = () => {
   const [sparkles] = useState(generateSparkles);
   const [hovered, setHovered] = useState(false);
   const [clickPulse, setClickPulse] = useState(false);
+  const [visible, setVisible] = useState(true);
   const areaRef = useRef<HTMLDivElement>(null);
+
+  // Hide when genie emerges, show when genie returns
+  useEffect(() => {
+    const handleEmerged = () => setVisible(false);
+    const handleHidden = () => setVisible(true);
+    window.addEventListener('genie-emerged', handleEmerged);
+    window.addEventListener('genie-hidden', handleHidden);
+    return () => {
+      window.removeEventListener('genie-emerged', handleEmerged);
+      window.removeEventListener('genie-hidden', handleHidden);
+    };
+  }, []);
 
   // Listen for mousemove over the lamp area (using a transparent hover zone)
   useEffect(() => {
@@ -85,6 +98,8 @@ export const GenieLampOverlay: React.FC = () => {
         height: "300px",
         pointerEvents: "none",
         zIndex: 5,
+        opacity: visible ? 1 : 0,
+        transition: "opacity 0.5s ease",
       }}
     >
       {/* PART 1 — Sparkles */}
